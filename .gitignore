@@ -12,3 +12,6 @@ tmp
 
 # Use for build reports
 /reports
+
+# Mac files
+*.DS_Store

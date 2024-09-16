@@ -1,4 +1,4 @@
-FROM docker.io/library/ubuntu:latest
+FROM docker.io/library/ubuntu:noble
 
 ENV R_VERSION="devel"
 ENV R_HOME="/usr/local/lib/R"

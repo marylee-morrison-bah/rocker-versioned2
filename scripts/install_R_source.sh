@@ -33,7 +33,7 @@ if [ "${UBUNTU_CODENAME}" == "bionic" ]; then
     READLINE_VERSION=7
 fi
 
-apt-get install -y --no-install-recommends \
+apt-get update && apt-get install -y --no-install-recommends --fix-missing \
     bash-completion \
     ca-certificates \
     file \
@@ -95,7 +95,7 @@ BUILDDEPS="curl \
     zlib1g-dev"
 
 # shellcheck disable=SC2086
-apt-get install -y --no-install-recommends ${BUILDDEPS}
+apt-get update && apt-get install -y --no-install-recommends --fix-missing ${BUILDDEPS}
 
 ## Download R from 0-Cloud CRAN mirror or CRAN
 function download_r_src() {

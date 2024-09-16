@@ -1,5 +1,8 @@
 FROM docker.io/library/ubuntu:noble
 
+# COPY certificates/zscaler_certificate.pem /usr/local/share/ca-certificates/zscaler_certificate.crt
+# RUN apt-get update && apt-get install -y ca-certificates
+# RUN update-ca-certificates
 ENV R_VERSION="devel"
 ENV R_HOME="/usr/local/lib/R"
 ENV TZ="Etc/UTC"

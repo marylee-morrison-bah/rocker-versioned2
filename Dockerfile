@@ -1,4 +1,4 @@
-FROM docker.io/library/ubuntu:noble
+FROM docker.io/library/ubuntu:jammy
 
 # COPY certificates/zscaler_certificate.pem /usr/local/share/ca-certificates/zscaler_certificate.crt
 # RUN apt-get update && apt-get install -y ca-certificates

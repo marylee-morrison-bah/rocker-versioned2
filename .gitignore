@@ -13,5 +13,8 @@ tmp
 # Use for build reports
 /reports
 
+# Certificates directory
+certificates/
+
 # Mac files
 *.DS_Store

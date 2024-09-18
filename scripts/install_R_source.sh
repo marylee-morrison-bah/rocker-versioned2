@@ -35,7 +35,6 @@ fi
 
 apt-get update && apt-get install -y --no-install-recommends --fix-missing \
     bash-completion \
-    ca-certificates \
     file \
     fonts-texgyre \
     g++ \

@@ -31,6 +31,9 @@ COPY scripts/install_pandoc.sh /rocker_scripts/install_pandoc.sh
 COPY scripts/init_set_env.sh /rocker_scripts/init_set_env.sh
 RUN /rocker_scripts/install_shiny_server.sh
 
+ENV NODE_EXTRA_CA_CERTS="/usr/local/share/ca-certificates/zscaler_certificate.crt"
+RUN opt/shiny-server/bin/npm install -g npm@latest
+
 EXPOSE 3838
 CMD ["/init"]
 

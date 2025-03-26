@@ -31,8 +31,16 @@ COPY scripts/install_pandoc.sh /rocker_scripts/install_pandoc.sh
 COPY scripts/init_set_env.sh /rocker_scripts/init_set_env.sh
 RUN /rocker_scripts/install_shiny_server.sh
 
+WORKDIR /opt/shiny-server
 ENV NODE_EXTRA_CA_CERTS="/usr/local/share/ca-certificates/zscaler_certificate.crt"
-RUN opt/shiny-server/bin/npm install -g npm@latest
+RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
+RUN bin/npm install -g npm@latest
+RUN apt-get install -y git
+RUN bin/npm update path_to_regexp
+RUN bin/npm audit fix
+
+RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
+RUN apt-get autoremove -y && apt-get clean
 
 EXPOSE 3838
 CMD ["/init"]

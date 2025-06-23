@@ -1,4 +1,4 @@
-FROM docker.io/library/ubuntu:noble
+FROM docker.io/library/ubuntu:jammy
 
 COPY certificates/zscaler_cert.pem /usr/local/share/ca-certificates/zscaler_certificate.crt
 RUN apt-get update -y
@@ -7,8 +7,7 @@ RUN apt-get install -y ca-certificates
 RUN apt-get autoremove
 RUN apt-get clean
 RUN update-ca-certificates
-
-ENV R_VERSION="4.5.1"
+ENV R_VERSION="devel"
 ENV R_HOME="/usr/local/lib/R"
 ENV TZ="Etc/UTC"
 

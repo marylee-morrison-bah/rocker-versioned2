@@ -8,7 +8,7 @@ RUN apt-get autoremove
 RUN apt-get clean
 RUN update-ca-certificates
 
-ENV R_VERSION="4.5.1"
+ENV R_VERSION="4.5.2"
 ENV R_HOME="/usr/local/lib/R"
 ENV TZ="Etc/UTC"
 
@@ -41,7 +41,7 @@ RUN bin/npm update path_to_regexp
 RUN bin/npm audit fix
 
 RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
-RUN apt-get autoremove -y && apt-get clean
+RUN apt-get purge -y libglut3.12 && apt-get autoremove -y && apt-get clean
 
 EXPOSE 3838
 CMD ["/init"]

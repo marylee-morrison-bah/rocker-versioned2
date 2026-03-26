@@ -25,7 +25,7 @@ COPY scripts/install_tidyverse.sh /rocker_scripts/install_tidyverse.sh
 RUN /rocker_scripts/install_tidyverse.sh
 
 ENV S6_VERSION="v2.1.0.2"
-ENV RSTUDIO_VERSION="2024.12.1+563"
+ENV RSTUDIO_VERSION="2026.01.1+403"
 ENV DEFAULT_USER="rstudio"
 
 COPY scripts/install_rstudio.sh /rocker_scripts/install_rstudio.sh
@@ -44,13 +44,6 @@ RUN /rocker_scripts/install_pandoc.sh
 
 COPY scripts/install_quarto.sh /rocker_scripts/install_quarto.sh
 RUN /rocker_scripts/install_quarto.sh
-
-ENV CTAN_REPO="https://mirror.ctan.org/systems/texlive/tlnet"
-ENV PATH="$PATH:/usr/local/texlive/bin/linux"
-
-COPY scripts/install_verse.sh /rocker_scripts/install_verse.sh
-COPY scripts/install_texlive.sh /rocker_scripts/install_texlive.sh
-RUN /rocker_scripts/install_verse.sh
 
 COPY scripts/install_geospatial.sh /rocker_scripts/install_geospatial.sh
 RUN /rocker_scripts/install_geospatial.sh

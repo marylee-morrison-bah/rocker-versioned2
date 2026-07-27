@@ -8,19 +8,24 @@ RUN apt-get autoremove
 RUN apt-get clean
 RUN update-ca-certificates
 
-ENV R_VERSION="4.5.2"
+ENV R_VERSION="4.6.1"
 ENV R_HOME="/usr/local/lib/R"
 ENV TZ="Etc/UTC"
 
 COPY scripts/install_R_source.sh /rocker_scripts/install_R_source.sh
 RUN /rocker_scripts/install_R_source.sh
 
-ENV CRAN="https://cloud.r-project.org"
+ENV CRAN="https://p3m.dev/cran/__linux__/noble/latest"
 ENV LANG=en_US.UTF-8
 
 COPY scripts/bin/ /rocker_scripts/bin/
 COPY scripts/setup_R.sh /rocker_scripts/setup_R.sh
-RUN /rocker_scripts/setup_R.sh
+RUN <<EOF
+if grep -q "1000" /etc/passwd; then
+    userdel --remove "$(id -un 1000)";
+fi
+/rocker_scripts/setup_R.sh
+EOF
 
 ENV S6_VERSION="v2.1.0.2"
 ENV SHINY_SERVER_VERSION="latest"
@@ -32,16 +37,22 @@ COPY scripts/install_pandoc.sh /rocker_scripts/install_pandoc.sh
 COPY scripts/init_set_env.sh /rocker_scripts/init_set_env.sh
 RUN /rocker_scripts/install_shiny_server.sh
 
-WORKDIR /opt/shiny-server
+WORKDIR /opt/shiny-server/
 ENV NODE_EXTRA_CA_CERTS="/usr/local/share/ca-certificates/zscaler_certificate.crt"
-RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
-RUN bin/npm install -g npm@latest
-RUN apt-get install -y git
-RUN bin/npm update path_to_regexp
-RUN bin/npm audit fix
+# RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
+# RUN bin/npm install -g npm@latest
+# RUN apt-get install -y git
+# RUN bin/npm pkg set overrides.serialize-javascript=7.0.5
+# RUN bin/npm pkg set overrides.picomatch=4.0.4
+# RUN bin/npm update serialize-javascript
+# RUN bin/npm update picomatch
 
-RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
-RUN apt-get purge -y libglut3.12 && apt-get autoremove -y && apt-get clean
+RUN rm -rf /opt/shiny-server/ext/node/lib/node_modules/npm
+
+# RUN npm audit fix
+
+# RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
+# RUN apt-get purge -y libglut3.12 && apt-get autoremove -y && apt-get clean
 
 EXPOSE 3838
 CMD ["/init"]
